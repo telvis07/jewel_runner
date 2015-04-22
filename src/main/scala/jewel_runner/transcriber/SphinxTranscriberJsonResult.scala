@@ -1,14 +1,12 @@
 package jewel_runner.transcriber
 
+import java.io.FileInputStream
+
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.fasterxml.jackson.databind.SerializationFeature
 
-
 import edu.cmu.sphinx.api._
-import edu.cmu.sphinx.result.WordResult
-import java.io.InputStream
-
 import edu.cmu.sphinx.util.LogMath
 
 // TODO: What is this??
@@ -28,12 +26,20 @@ object SphinxTranscriberJsonResult {
   mapper.registerModule(DefaultScalaModule)
   mapper.enable(SerializationFeature.INDENT_OUTPUT)
 
-
   def to_json_string(m : scala.collection.mutable.HashMap[String, Any]): String = {
     mapper.writeValueAsString(m)
   }
 
   def main(args : Array[String]){
+
+    if (args.length != 1){
+      System.err.println("Number of args: "+args.length.toString)
+      System.err.println("Usage : PROG <path_to_file>")
+      System.exit(1)
+    }
+
+    val inputFile = args(0)
+
     /*
     // edu.cmu.sphinx.api.Configuration
     // Configuration options for speech recognition
@@ -84,7 +90,7 @@ object SphinxTranscriberJsonResult {
      */
     configuration.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.dmp")
 
-    val stream : InputStream = getClass.getResourceAsStream("/10001-90210-01803.wav")
+    val stream = new FileInputStream(inputFile)
     stream.skip(44)
 
     // initialize the recognizer
