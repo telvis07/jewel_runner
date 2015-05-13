@@ -25,7 +25,7 @@ object SphinxTranscriberJsonResult {
   // For JSON parsing
   val mapper = new ObjectMapper()
   mapper.registerModule(DefaultScalaModule)
-  mapper.enable(SerializationFeature.INDENT_OUTPUT)
+  // mapper.enable(SerializationFeature.INDENT_OUTPUT)
 
   def to_json_string(m : scala.collection.mutable.HashMap[String, Any]): String = {
     mapper.writeValueAsString(m)
@@ -72,6 +72,7 @@ object SphinxTranscriberJsonResult {
       // Sometimes the result can be non-null but the results are still empty
       if (result.getHypothesis.length > 0){
         val speech_record = new scala.collection.mutable.HashMap[String, Any]
+        speech_record("filename") = inputFile
         speech_record("hypothesis") = result.getHypothesis
         println("List of recognized words and their times:")
 
@@ -82,9 +83,10 @@ object SphinxTranscriberJsonResult {
           case _ if (word_results == null) => Map()
           case _ => word_results.map({ r  => {
             Map("word" -> r.getWord.toString,
-              "start" -> r.getTimeFrame.getStart.toString,
-              "end" -> r.getTimeFrame.getEnd.toString,
-              "confidence_log" -> LogMath.getLogMath.logToLinear(r.getConfidence.toFloat))
+                "start" -> r.getTimeFrame.getStart.toString,
+                "end" -> r.getTimeFrame.getEnd.toString,
+                "confidence_log" -> LogMath.getLogMath.logToLinear(r.getConfidence.toFloat),
+                "pronunciation" -> r.getPronunciation.getUnits.mkString(" "))
           }
           })
         }

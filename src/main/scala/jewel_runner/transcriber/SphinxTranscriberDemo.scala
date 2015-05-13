@@ -1,6 +1,7 @@
 package jewel_runner.transcriber
 
 import edu.cmu.sphinx.api._
+import edu.cmu.sphinx.linguist.dictionary.Pronunciation
 import edu.cmu.sphinx.result.WordResult
 import java.io.InputStream
 
@@ -97,6 +98,7 @@ object SphinxTranscriberDemo {
 
       for (r: WordResult <- result.getWords()) {
         printf("Wordresult: %s\n", r)
+        printf("Pronunciation: %s\n", r.getPronunciation.getUnits.map(x => x.toString))
       }
 
       println("Best 3 hypothesis:")
