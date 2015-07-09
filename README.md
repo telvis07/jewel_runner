@@ -17,8 +17,6 @@ How to run the transcriber demo
     
     sbt package
     export JAVA_OPTS="-Xmx2048m -Xms256m"
-    scala -cp target/scala-2.11/jewel_runner-assembly-1.0.jar jewel_runner.transcriber.SphinxTranscriberDemo
-
 
 To transcribe the example audio file
 
