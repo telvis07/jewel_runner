@@ -1,4 +1,5 @@
-An example to use CMUSphinx voice transcriber in Scala and print results in JSON format.
+An example to use [CMUSphinx speech transcriber](http://cmusphinx.sourceforge.net/doc/sphinx4/edu/cmu/sphinx/api/StreamSpeechRecognizer.html) in Scala and
+print results in JSON format.
 
 ### References
 
@@ -8,6 +9,7 @@ The following references were useful to me for this work.
 - [sbt](http://www.scala-sbt.org/documentation.html)
 - [scala docs](http://www.scala-lang.org/api/current/index.html#package)
 - [sphinx](http://cmusphinx.sourceforge.net/wiki/)
+- [How CMUSphinx converts raw audio into text](http://cmusphinx.sourceforge.net/wiki/tutorialconcepts)
 
 ## SphinxTranscriberJsonResult
 
